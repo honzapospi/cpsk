@@ -3,7 +3,12 @@ import axios from 'axios';
 
 export default {
     getItems: function () {
-        return axios.get(url+'/notice');
+        return new Promise((result, reject) => {
+            return axios.get(url+'/notice').then((data) => {
+                console.log(data);
+                result(data.data.data)
+            }).catch(reject);
+        });
     },
 
     createNotice: function(title, description, date, period){

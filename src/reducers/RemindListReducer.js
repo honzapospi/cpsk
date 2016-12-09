@@ -4,8 +4,9 @@ let id = 1;
 
 export default (state = [], action) => {
     if(action.type == GET_LIST){
-        return state;
+        return action.payload;
     } else if(action.type == ADD_NOTICE){
+        return state;
         let item = action.item;
         item.id = id;
         id++;

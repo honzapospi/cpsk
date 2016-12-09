@@ -1,15 +1,19 @@
 export const GET_LIST = 'GET_LIST';
 export const ADD_NOTICE = 'ADD_NOTICE';
 export const DELETE_NOTICE = 'DELETE_NOTICE';
+import api from '../api';
 
 export const getList =  () => {
-    return {type: GET_LIST};
+    return {
+        type: GET_LIST,
+        payload: api.getItems()
+    };
 }
 
 export const addNotice = (title, description, date, period) => {
     return {
-        type: ADD_NOTICE,
-        item: {title, description, date, period}
+        type: 'sdfkjsh',
+        item: api.createNotice(title, description, date, period)
     }
 }
 

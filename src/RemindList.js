@@ -1,7 +1,7 @@
 import api from './api';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {deleteNotice} from './actions';
+import {deleteNotice, getList} from './actions';
 
 class RemindList extends Component {
     // constructor(props){
@@ -13,6 +13,7 @@ class RemindList extends Component {
     // }
 
     componentWillMount(){
+        this.props.getList().then(data => console.log(data));
         // $.getJSON('http://skoleni.anywhere.cz/react/remindme/api/notice', (data, status) => {
         //     if(status == 'success'){
         //         this.setState({data: data.data});
@@ -73,4 +74,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {deleteNotice})(RemindList);
+export default connect(mapStateToProps, {deleteNotice, getList})(RemindList);

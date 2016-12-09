@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import App from './App';
-
-const items = [
-    {name: 'List', id: 1},
-    {name: 'New', id: 2}
-];
+import {Router, Route, browserHistory} from 'react-router';
 
 
-render(<App items={items} />, document.getElementById('app'));
-
+render(
+    <Router history={browserHistory} >
+        <Route path="/" component={App} />
+    </Router>,
+    document.getElementById('app'));

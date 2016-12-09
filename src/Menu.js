@@ -1,5 +1,10 @@
 import React from 'react';
 
+const items = [
+    {name: 'List', id: 1},
+    {name: 'New', id: 2}
+];
+
 export default React.createClass({
 
     render: function () {
@@ -14,31 +19,18 @@ export default React.createClass({
     },
 
     renderItems: function () {
-        return this.props.items.map((item) => {
-            return <MenuItem onClickItem={this.props.goToPage} isActive={this.props.activeId == item.id} myid={item.id} key={item.id}>{item.name}</MenuItem>
+        return items.map((item) => {
+            return <MenuItem myid={item.id} key={item.id}>{item.name}</MenuItem>
         });
     },
 
-    // handleOnClick: function () {
-    //     this.setState({
-    //         color: 'green'
-    //     });
-    // }
 });
 
 
 class MenuItem extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {};
-    }
-
     render(){
         let color = this.props.isActive ? 'red' : 'black';
-        return <li style={{color: color}} onClick={this.handleClick.bind(this)}>{this.props.children}</li>
+        return <li style={{color: color}}>{this.props.children}</li>
     }
 
-    handleClick(){
-        this.props.onClickItem(this.props.myid);
-    }
 }

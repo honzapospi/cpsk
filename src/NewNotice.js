@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import api from './api';
+import {addNotice} from './actions';
+import {connect} from 'react-redux';
 
-export default class NewNotice extends Component {
+class NewNotice extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -21,12 +23,16 @@ export default class NewNotice extends Component {
     }
 
     handleSave(e){
-        let p = api.createNotice(this.state.name, this.refs.description.value, '2016-10-10 10:10:10', 'week');
-        p.then(() => {
-            this.props.goToPage(1);
-        }).catch(e => {
-            alert(e);
-        });
+        e.preventDefault();
+        // let p = api.createNotice(this.state.name, this.refs.description.value, '2016-10-10 10:10:10', 'week');
+        // p.then(() => {
+        //     this.props.goToPage(1);
+        // }).catch(e => {
+        //     alert(e);
+        // });
+        this.props.actionAddNotice(this.state.name, this.refs.description.value, '2016-10-10 10:10:10', 'week');
+        this.context.router.push('/');
+        //this.props.history.push('/');
     }
 
     handleChangeName(e){
@@ -42,3 +48,8 @@ export default class NewNotice extends Component {
     }
 }
 
+NewNotice.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
+
+export default connect(null, {actionAddNotice: addNotice})(NewNotice);

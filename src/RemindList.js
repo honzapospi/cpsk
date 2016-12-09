@@ -1,14 +1,16 @@
 import api from './api';
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {deleteNotice} from './actions';
 
-export default class RemindList extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            data: []
-        };
-        //console.log('create');
-    }
+class RemindList extends Component {
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         data: []
+    //     };
+    //     //console.log('create');
+    // }
 
     componentWillMount(){
         // $.getJSON('http://skoleni.anywhere.cz/react/remindme/api/notice', (data, status) => {
@@ -17,10 +19,10 @@ export default class RemindList extends Component {
         //     }
         // })
 
-        let response = api.getItems();
-        response.then(data => {
-            this.setState({data: data.data.data})
-        });
+        // let response = api.getItems();
+        // response.then(data => {
+        //     this.setState({data: data.data.data})
+        // });
     }
 
     render(){
@@ -42,15 +44,19 @@ export default class RemindList extends Component {
         </div>
     }
 
+    handleDeleteItem(id){
+        this.props.deleteNotice(id);
+    }
+
     renderBody(){
-        if(this.state.data.length){
-            return this.state.data.map(item => {
+        if(this.props.list.length){
+            return this.props.list.map(item => {
                 return <tr key={item.id}>
                     <td>{item.title}</td>
                     <td>{item.description}</td>
                     <td>{item.date}</td>
                     <td>{item.period}</td>
-                    <td><a href="">delete</a></td>
+                    <td><span style={{cursor: 'pointer'}} onClick={() => {this.handleDeleteItem(item.id)}}>delete</span></td>
                 </tr>
             });
         } else {
@@ -60,3 +66,11 @@ export default class RemindList extends Component {
 
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        list: state.remind_list
+    }
+}
+
+export default connect(mapStateToProps, {deleteNotice})(RemindList);
